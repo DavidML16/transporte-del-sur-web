@@ -21,7 +21,7 @@ $: {
 }
 
 onMount(async () => {
-    fetch("http://api.ctan.es/v1/Consorcios/2/lineas")
+    fetch("https://api.ctan.es/v1/Consorcios/2/lineas")
         .then(response => response.json())
         .then(data => {
             transportLines = data.lineas;

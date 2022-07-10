@@ -37,7 +37,7 @@ $: {
 }
 
 onMount(async () => {
-    fetch("http://api.ctan.es/v1/Consorcios/2/horarios_lineas?linea=" + lineId)
+    fetch("https://api.ctan.es/v1/Consorcios/2/horarios_lineas?linea=" + lineId)
         .then(response => response.json())
         .then(data => {
             console.log(data);
