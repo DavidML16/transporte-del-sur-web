@@ -14,7 +14,7 @@ let search = '';
 
 $: {
     if(search != '') {
-        filteredTransportLines = transportLines.filter(item => item.codigo.toLowerCase().indexOf(search.toLowerCase()) !== -1);
+        filteredTransportLines = transportLines.filter(item => item.codigo.toLowerCase().indexOf(search.toLowerCase()) !== -1 || item.nombre.toLowerCase().indexOf(search.toLowerCase()) !== -1);
     } else {
         filteredTransportLines = transportLines;
     }
@@ -44,18 +44,35 @@ onMount(async () => {
                     </div>
                 </div>
                 <p class="noselect"></p>
-                <ul class="row list-unstyled">
+                <div class="masonary-row">
                          
                     {#if transportLines.length > 0}
                         
                         {#each filteredTransportLines as transportLine}
                                     
-                            <li class="col-12 col-lg-3 store-server store-server-green">
+                            <li class="store-server store-server-green">
                                 <Link to="/linea/{transportLine.idLinea}" class="store-product p-5 text-left rounded d-flex align-items-center">
                                     <div class="group ml-3 d-flex justify-content-between align-items-center w-100">
                                         <div class="sub-group">
                                             <div class="store-product-head">
                                                 <div class="store-product-head-title font-size-16 font-800 line-height-1">{transportLine.codigo}</div>
+                                            </div>
+                                            <div class="mt-3">
+
+                                                {#each transportLine.nombre.split("-") as core, i}
+                                                     
+                                                    {#if core.includes(" (")}
+                                                        
+                                                        <div class="font-size-10 font-500 line-height-4">{ i + 1 }. { core.split(" (")[0] }</div>
+
+                                                    {:else}
+                                                         
+                                                        <div class="font-size-10 font-500 line-height-4">{ i + 1 }. { core }</div>
+
+                                                    {/if}
+
+                                                {/each}
+
                                             </div>
                                         </div>
                                         <button class="btn btn-norm-padding mb-0 d-lg-flex d-none"> <ion-icon name="arrow-forward" role="img" class="md hydrated" aria-label="arrow forward"></ion-icon> </button>
@@ -67,7 +84,7 @@ onMount(async () => {
 
                     {/if}
 
-                </ul>
+                </div>
             </div>
         </div>
     </div>

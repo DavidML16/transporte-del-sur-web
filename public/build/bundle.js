@@ -1471,7 +1471,7 @@ var app = (function () {
     	let if_block;
     	let if_block_anchor;
     	let current;
-    	const if_block_creators = [create_if_block_1$1, create_else_block$1];
+    	const if_block_creators = [create_if_block_1$2, create_else_block$2];
     	const if_blocks = [];
 
     	function select_block_type(ctx, dirty) {
@@ -1546,7 +1546,7 @@ var app = (function () {
     }
 
     // (43:2) {:else}
-    function create_else_block$1(ctx) {
+    function create_else_block$2(ctx) {
     	let current;
     	const default_slot_template = /*#slots*/ ctx[10].default;
     	const default_slot = create_slot(default_slot_template, ctx, /*$$scope*/ ctx[9], get_default_slot_context);
@@ -1594,7 +1594,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_else_block$1.name,
+    		id: create_else_block$2.name,
     		type: "else",
     		source: "(43:2) {:else}",
     		ctx
@@ -1604,7 +1604,7 @@ var app = (function () {
     }
 
     // (41:2) {#if component !== null}
-    function create_if_block_1$1(ctx) {
+    function create_if_block_1$2(ctx) {
     	let switch_instance;
     	let switch_instance_anchor;
     	let current;
@@ -1697,7 +1697,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block_1$1.name,
+    		id: create_if_block_1$2.name,
     		type: "if",
     		source: "(41:2) {#if component !== null}",
     		ctx
@@ -2442,6 +2442,13 @@ var app = (function () {
     	return child_ctx;
     }
 
+    function get_each_context_1$1(ctx, list, i) {
+    	const child_ctx = ctx.slice();
+    	child_ctx[7] = list[i];
+    	child_ctx[9] = i;
+    	return child_ctx;
+    }
+
     // (49:20) {#if transportLines.length > 0}
     function create_if_block$1(ctx) {
     	let each_1_anchor;
@@ -2538,59 +2545,249 @@ var app = (function () {
     	return block;
     }
 
+    // (68:52) {:else}
+    function create_else_block$1(ctx) {
+    	let div;
+    	let t0_value = /*i*/ ctx[9] + 1 + "";
+    	let t0;
+    	let t1;
+    	let t2_value = /*core*/ ctx[7] + "";
+    	let t2;
+
+    	const block = {
+    		c: function create() {
+    			div = element("div");
+    			t0 = text(t0_value);
+    			t1 = text(". ");
+    			t2 = text(t2_value);
+    			attr_dev(div, "class", "font-size-10 font-500 line-height-4");
+    			add_location(div, file$2, 69, 56, 3144);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div, anchor);
+    			append_dev(div, t0);
+    			append_dev(div, t1);
+    			append_dev(div, t2);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*filteredTransportLines*/ 4 && t2_value !== (t2_value = /*core*/ ctx[7] + "")) set_data_dev(t2, t2_value);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_else_block$1.name,
+    		type: "else",
+    		source: "(68:52) {:else}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (64:52) {#if core.includes(" (")}
+    function create_if_block_1$1(ctx) {
+    	let div;
+    	let t0_value = /*i*/ ctx[9] + 1 + "";
+    	let t0;
+    	let t1;
+    	let t2_value = /*core*/ ctx[7].split(" (")[0] + "";
+    	let t2;
+
+    	const block = {
+    		c: function create() {
+    			div = element("div");
+    			t0 = text(t0_value);
+    			t1 = text(". ");
+    			t2 = text(t2_value);
+    			attr_dev(div, "class", "font-size-10 font-500 line-height-4");
+    			add_location(div, file$2, 65, 56, 2879);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div, anchor);
+    			append_dev(div, t0);
+    			append_dev(div, t1);
+    			append_dev(div, t2);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*filteredTransportLines*/ 4 && t2_value !== (t2_value = /*core*/ ctx[7].split(" (")[0] + "")) set_data_dev(t2, t2_value);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block_1$1.name,
+    		type: "if",
+    		source: "(64:52) {#if core.includes(\\\" (\\\")}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (62:48) {#each transportLine.nombre.split("-") as core, i}
+    function create_each_block_1$1(ctx) {
+    	let show_if;
+    	let if_block_anchor;
+
+    	function select_block_type(ctx, dirty) {
+    		if (dirty & /*filteredTransportLines*/ 4) show_if = null;
+    		if (show_if == null) show_if = !!/*core*/ ctx[7].includes(" (");
+    		if (show_if) return create_if_block_1$1;
+    		return create_else_block$1;
+    	}
+
+    	let current_block_type = select_block_type(ctx, -1);
+    	let if_block = current_block_type(ctx);
+
+    	const block = {
+    		c: function create() {
+    			if_block.c();
+    			if_block_anchor = empty();
+    		},
+    		m: function mount(target, anchor) {
+    			if_block.m(target, anchor);
+    			insert_dev(target, if_block_anchor, anchor);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (current_block_type === (current_block_type = select_block_type(ctx, dirty)) && if_block) {
+    				if_block.p(ctx, dirty);
+    			} else {
+    				if_block.d(1);
+    				if_block = current_block_type(ctx);
+
+    				if (if_block) {
+    					if_block.c();
+    					if_block.m(if_block_anchor.parentNode, if_block_anchor);
+    				}
+    			}
+    		},
+    		d: function destroy(detaching) {
+    			if_block.d(detaching);
+    			if (detaching) detach_dev(if_block_anchor);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_each_block_1$1.name,
+    		type: "each",
+    		source: "(62:48) {#each transportLine.nombre.split(\\\"-\\\") as core, i}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
     // (54:32) <Link to="/linea/{transportLine.idLinea}" class="store-product p-5 text-left rounded d-flex align-items-center">
     function create_default_slot$2(ctx) {
+    	let div4;
     	let div3;
-    	let div2;
     	let div1;
     	let div0;
     	let t0_value = /*transportLine*/ ctx[4].codigo + "";
     	let t0;
     	let t1;
+    	let div2;
+    	let t2;
     	let button;
     	let ion_icon;
+    	let each_value_1 = /*transportLine*/ ctx[4].nombre.split("-");
+    	validate_each_argument(each_value_1);
+    	let each_blocks = [];
+
+    	for (let i = 0; i < each_value_1.length; i += 1) {
+    		each_blocks[i] = create_each_block_1$1(get_each_context_1$1(ctx, each_value_1, i));
+    	}
 
     	const block = {
     		c: function create() {
+    			div4 = element("div");
     			div3 = element("div");
-    			div2 = element("div");
     			div1 = element("div");
     			div0 = element("div");
     			t0 = text(t0_value);
     			t1 = space();
+    			div2 = element("div");
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].c();
+    			}
+
+    			t2 = space();
     			button = element("button");
     			ion_icon = element("ion-icon");
     			attr_dev(div0, "class", "store-product-head-title font-size-16 font-800 line-height-1");
-    			add_location(div0, file$2, 57, 48, 2271);
+    			add_location(div0, file$2, 57, 48, 2317);
     			attr_dev(div1, "class", "store-product-head");
-    			add_location(div1, file$2, 56, 44, 2190);
-    			attr_dev(div2, "class", "sub-group");
-    			add_location(div2, file$2, 55, 40, 2122);
+    			add_location(div1, file$2, 56, 44, 2236);
+    			attr_dev(div2, "class", "mt-3");
+    			add_location(div2, file$2, 59, 44, 2515);
+    			attr_dev(div3, "class", "sub-group");
+    			add_location(div3, file$2, 55, 40, 2168);
     			set_custom_element_data(ion_icon, "name", "arrow-forward");
     			set_custom_element_data(ion_icon, "role", "img");
     			set_custom_element_data(ion_icon, "class", "md hydrated");
     			set_custom_element_data(ion_icon, "aria-label", "arrow forward");
-    			add_location(ion_icon, file$2, 60, 100, 2572);
+    			add_location(ion_icon, file$2, 77, 100, 3534);
     			attr_dev(button, "class", "btn btn-norm-padding mb-0 d-lg-flex d-none");
-    			add_location(button, file$2, 60, 40, 2512);
-    			attr_dev(div3, "class", "group ml-3 d-flex justify-content-between align-items-center w-100");
-    			add_location(div3, file$2, 54, 36, 2001);
+    			add_location(button, file$2, 77, 40, 3474);
+    			attr_dev(div4, "class", "group ml-3 d-flex justify-content-between align-items-center w-100");
+    			add_location(div4, file$2, 54, 36, 2047);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, div3, anchor);
-    			append_dev(div3, div2);
-    			append_dev(div2, div1);
+    			insert_dev(target, div4, anchor);
+    			append_dev(div4, div3);
+    			append_dev(div3, div1);
     			append_dev(div1, div0);
     			append_dev(div0, t0);
     			append_dev(div3, t1);
-    			append_dev(div3, button);
+    			append_dev(div3, div2);
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].m(div2, null);
+    			}
+
+    			append_dev(div4, t2);
+    			append_dev(div4, button);
     			append_dev(button, ion_icon);
     		},
     		p: function update(ctx, dirty) {
     			if (dirty & /*filteredTransportLines*/ 4 && t0_value !== (t0_value = /*transportLine*/ ctx[4].codigo + "")) set_data_dev(t0, t0_value);
+
+    			if (dirty & /*filteredTransportLines*/ 4) {
+    				each_value_1 = /*transportLine*/ ctx[4].nombre.split("-");
+    				validate_each_argument(each_value_1);
+    				let i;
+
+    				for (i = 0; i < each_value_1.length; i += 1) {
+    					const child_ctx = get_each_context_1$1(ctx, each_value_1, i);
+
+    					if (each_blocks[i]) {
+    						each_blocks[i].p(child_ctx, dirty);
+    					} else {
+    						each_blocks[i] = create_each_block_1$1(child_ctx);
+    						each_blocks[i].c();
+    						each_blocks[i].m(div2, null);
+    					}
+    				}
+
+    				for (; i < each_blocks.length; i += 1) {
+    					each_blocks[i].d(1);
+    				}
+
+    				each_blocks.length = each_value_1.length;
+    			}
     		},
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(div3);
+    			if (detaching) detach_dev(div4);
+    			destroy_each(each_blocks, detaching);
     		}
     	};
 
@@ -2627,8 +2824,8 @@ var app = (function () {
     			li = element("li");
     			create_component(link.$$.fragment);
     			t = space();
-    			attr_dev(li, "class", "col-12 col-lg-3 store-server store-server-green");
-    			add_location(li, file$2, 52, 28, 1759);
+    			attr_dev(li, "class", "store-server store-server-green");
+    			add_location(li, file$2, 52, 28, 1821);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
@@ -2640,7 +2837,7 @@ var app = (function () {
     			const link_changes = {};
     			if (dirty & /*filteredTransportLines*/ 4) link_changes.to = "/linea/" + /*transportLine*/ ctx[4].idLinea;
 
-    			if (dirty & /*$$scope, filteredTransportLines*/ 132) {
+    			if (dirty & /*$$scope, filteredTransportLines*/ 1028) {
     				link_changes.$$scope = { dirty, ctx };
     			}
 
@@ -2673,10 +2870,10 @@ var app = (function () {
     }
 
     function create_fragment$3(ctx) {
+    	let div6;
     	let div5;
     	let div4;
     	let div3;
-    	let div2;
     	let h1;
     	let t1;
     	let div1;
@@ -2687,7 +2884,7 @@ var app = (function () {
     	let t4;
     	let p;
     	let t5;
-    	let ul;
+    	let div2;
     	let current;
     	let mounted;
     	let dispose;
@@ -2695,10 +2892,10 @@ var app = (function () {
 
     	const block = {
     		c: function create() {
+    			div6 = element("div");
     			div5 = element("div");
     			div4 = element("div");
     			div3 = element("div");
-    			div2 = element("div");
     			h1 = element("h1");
     			h1.textContent = "Líneas de transporte";
     			t1 = space();
@@ -2711,57 +2908,57 @@ var app = (function () {
     			t4 = space();
     			p = element("p");
     			t5 = space();
-    			ul = element("ul");
+    			div2 = element("div");
     			if (if_block) if_block.c();
     			attr_dev(h1, "class", "sub-title-16 text-blue mt-2 text-center");
-    			add_location(h1, file$2, 38, 16, 895);
+    			add_location(h1, file$2, 38, 16, 961);
     			attr_dev(input, "type", "text");
     			attr_dev(input, "class", "form-control");
     			attr_dev(input, "name", "name");
     			attr_dev(input, "id", "line");
     			attr_dev(input, "placeholder", "Nombre");
-    			add_location(input, file$2, 41, 24, 1193);
+    			add_location(input, file$2, 41, 24, 1259);
     			attr_dev(label, "for", "leaderboard-search-player");
-    			add_location(label, file$2, 42, 24, 1321);
+    			add_location(label, file$2, 42, 24, 1387);
     			attr_dev(div0, "class", "input-group bg-white-3 input-group-with-button");
     			set_style(div0, "width", "auto", 1);
-    			add_location(div0, file$2, 40, 20, 1076);
+    			add_location(div0, file$2, 40, 20, 1142);
     			attr_dev(div1, "class", "searchbar rounded-top pb-2 d-flex align-items-center");
-    			add_location(div1, file$2, 39, 16, 989);
+    			add_location(div1, file$2, 39, 16, 1055);
     			attr_dev(p, "class", "noselect");
-    			add_location(p, file$2, 45, 16, 1447);
-    			attr_dev(ul, "class", "row list-unstyled");
-    			add_location(ul, file$2, 46, 16, 1488);
-    			attr_dev(div2, "class", "store-wrapper p-5 bg-black no-background");
-    			add_location(div2, file$2, 37, 12, 824);
-    			attr_dev(div3, "class", "store bg-white rounded");
-    			add_location(div3, file$2, 36, 8, 775);
-    			attr_dev(div4, "class", "col-12 pb-3 px-0");
-    			add_location(div4, file$2, 35, 4, 736);
-    			attr_dev(div5, "class", "row");
-    			add_location(div5, file$2, 34, 0, 714);
+    			add_location(p, file$2, 45, 16, 1513);
+    			attr_dev(div2, "class", "masonary-row");
+    			add_location(div2, file$2, 46, 16, 1554);
+    			attr_dev(div3, "class", "store-wrapper p-5 bg-black no-background");
+    			add_location(div3, file$2, 37, 12, 890);
+    			attr_dev(div4, "class", "store bg-white rounded");
+    			add_location(div4, file$2, 36, 8, 841);
+    			attr_dev(div5, "class", "col-12 pb-3 px-0");
+    			add_location(div5, file$2, 35, 4, 802);
+    			attr_dev(div6, "class", "row");
+    			add_location(div6, file$2, 34, 0, 780);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, div5, anchor);
+    			insert_dev(target, div6, anchor);
+    			append_dev(div6, div5);
     			append_dev(div5, div4);
     			append_dev(div4, div3);
-    			append_dev(div3, div2);
-    			append_dev(div2, h1);
-    			append_dev(div2, t1);
-    			append_dev(div2, div1);
+    			append_dev(div3, h1);
+    			append_dev(div3, t1);
+    			append_dev(div3, div1);
     			append_dev(div1, div0);
     			append_dev(div0, input);
     			set_input_value(input, /*search*/ ctx[1]);
     			append_dev(div0, t2);
     			append_dev(div0, label);
-    			append_dev(div2, t4);
-    			append_dev(div2, p);
-    			append_dev(div2, t5);
-    			append_dev(div2, ul);
-    			if (if_block) if_block.m(ul, null);
+    			append_dev(div3, t4);
+    			append_dev(div3, p);
+    			append_dev(div3, t5);
+    			append_dev(div3, div2);
+    			if (if_block) if_block.m(div2, null);
     			current = true;
 
     			if (!mounted) {
@@ -2785,7 +2982,7 @@ var app = (function () {
     					if_block = create_if_block$1(ctx);
     					if_block.c();
     					transition_in(if_block, 1);
-    					if_block.m(ul, null);
+    					if_block.m(div2, null);
     				}
     			} else if (if_block) {
     				group_outros();
@@ -2807,7 +3004,7 @@ var app = (function () {
     			current = false;
     		},
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(div5);
+    			if (detaching) detach_dev(div6);
     			if (if_block) if_block.d();
     			mounted = false;
     			dispose();
@@ -2876,7 +3073,7 @@ var app = (function () {
     		if ($$self.$$.dirty & /*search, transportLines*/ 3) {
     			{
     				if (search != '') {
-    					$$invalidate(2, filteredTransportLines = transportLines.filter(item => item.codigo.toLowerCase().indexOf(search.toLowerCase()) !== -1));
+    					$$invalidate(2, filteredTransportLines = transportLines.filter(item => item.codigo.toLowerCase().indexOf(search.toLowerCase()) !== -1 || item.nombre.toLowerCase().indexOf(search.toLowerCase()) !== -1));
     				} else {
     					$$invalidate(2, filteredTransportLines = transportLines);
     				}
