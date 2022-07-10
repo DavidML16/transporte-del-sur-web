@@ -4384,3 +4384,8 @@ footer .footer-bottom .divider{
         column-count:2!important
     }
 }
+
+.column.size-1of4 {
+    width: 25%;
+    float: left;
+  }
